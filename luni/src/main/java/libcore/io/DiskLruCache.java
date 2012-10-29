@@ -408,7 +408,7 @@ public final class DiskLruCache implements Closeable {
             executorService.submit(cleanupCallable);
         }
 
-        return new Snapshot(key, entry.sequenceNumber, ins);
+        return new Snapshot(key, entry.sequenceNumber, ins, entry.lengths);
     }
 
     /**
@@ -641,11 +641,13 @@ public final class DiskLruCache implements Closeable {
         private final String key;
         private final long sequenceNumber;
         private final InputStream[] ins;
+        private final long[] lengths;
 
-        private Snapshot(String key, long sequenceNumber, InputStream[] ins) {
+        private Snapshot(String key, long sequenceNumber, InputStream[] ins, long[] lengths) {
             this.key = key;
             this.sequenceNumber = sequenceNumber;
             this.ins = ins;
+            this.lengths = lengths;
         }
 
         /**
@@ -671,7 +673,14 @@ public final class DiskLruCache implements Closeable {
             return inputStreamToString(getInputStream(index));
         }
 
-        @Override public void close() {
+        /**
+         * Returns the byte length of the value for {@code index}.
+         */
+        public long getLength(int index) {
+            return lengths[index];
+        }
+
+        public void close() {
             for (InputStream in : ins) {
                 IoUtils.closeQuietly(in);
             }

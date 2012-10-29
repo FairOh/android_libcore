@@ -79,7 +79,9 @@ public final class DiskLruCacheTest extends TestCase {
 
         DiskLruCache.Snapshot snapshot = cache.get("k1");
         assertEquals("ABC", snapshot.getString(0));
+        assertEquals(3, snapshot.getLength(0));
         assertEquals("DE", snapshot.getString(1));
+        assertEquals(2, snapshot.getLength(1));
     }
 
     public void testReadAndWriteEntryAcrossCacheOpenAndClose() throws Exception {
@@ -92,7 +94,9 @@ public final class DiskLruCacheTest extends TestCase {
         cache = DiskLruCache.open(cacheDir, appVersion, 2, Integer.MAX_VALUE);
         DiskLruCache.Snapshot snapshot = cache.get("k1");
         assertEquals("A", snapshot.getString(0));
+        assertEquals(1, snapshot.getLength(0));
         assertEquals("B", snapshot.getString(1));
+        assertEquals(1, snapshot.getLength(1));
         snapshot.close();
     }
 
@@ -215,12 +219,15 @@ public final class DiskLruCacheTest extends TestCase {
 
         DiskLruCache.Snapshot snapshot2 = cache.get("k1");
         assertEquals("CCcc", snapshot2.getString(0));
+        assertEquals(4, snapshot2.getLength(0));
         assertEquals("DDdd", snapshot2.getString(1));
+        assertEquals(4, snapshot2.getLength(1));
         snapshot2.close();
 
         assertEquals('a', inV1.read());
         assertEquals('a', inV1.read());
         assertEquals("BBbb", snapshot1.getString(1));
+        assertEquals(4, snapshot1.getLength(1));
         snapshot1.close();
     }
 
@@ -411,7 +418,9 @@ public final class DiskLruCacheTest extends TestCase {
 
         DiskLruCache.Snapshot snapshot = cache.get("k1");
         assertEquals("C", snapshot.getString(0));
+        assertEquals(1, snapshot.getLength(0));
         assertEquals("B", snapshot.getString(1));
+        assertEquals(1, snapshot.getLength(1));
         snapshot.close();
     }
 
@@ -877,7 +886,9 @@ public final class DiskLruCacheTest extends TestCase {
     private void assertValue(String key, String value0, String value1) throws Exception {
         DiskLruCache.Snapshot snapshot = cache.get(key);
         assertEquals(value0, snapshot.getString(0));
+        assertEquals(value0.length(), snapshot.getLength(0));
         assertEquals(value1, snapshot.getString(1));
+        assertEquals(value1.length(), snapshot.getLength(1));
         assertTrue(getCleanFile(key, 0).exists());
         assertTrue(getCleanFile(key, 1).exists());
         snapshot.close();
