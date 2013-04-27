@@ -570,7 +570,7 @@ public final class DiskLruCache implements Closeable {
     /**
      * Returns true if this cache has been closed.
      */
-    public boolean isClosed() {
+    public synchronized boolean isClosed() {
         return journalWriter == null;
     }
 
