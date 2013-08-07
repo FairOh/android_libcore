@@ -532,24 +532,29 @@ public final class OldScannerTest extends TestCase {
     private static class MockStringReader2Read extends StringReader {
         private int timesRead = 1;
 
-        public MockStringReader2Read(String param) {
-            super(param);
-        }
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(baos));
+    for (int i = 0; i < count; ++i) {
+      out.write(Integer.toString(123) + " ");
+    }
+    out.close();
 
-        public int read(CharBuffer target) throws IOException {
-            if (timesRead == 1) {
-                target.append('1');
-                target.append('2');
-                target.append('3');
-                timesRead++;
-                return 3;
-            } else if (timesRead == 2) {
-                target.append('t');
-                timesRead++;
-                return 1;
-            } else {
-                throw new IOException();
-            }
-        }
+    ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+    bais.mark(-1);
+
+    Scanner s = new Scanner(new BufferedReader(new InputStreamReader(bais)));
+    for (int i = 0; i < count; ++i) {
+      if (s.nextInt() != 123) {
+        fail();
+      }
+    }
+
+    bais.reset();
+    s = new Scanner(new BufferedReader(new InputStreamReader(bais)));
+    for (int i = 0; i < count; ++i) {
+      if (s.nextFloat() != 123.0) {
+        fail();
+      }
+
     }
 }
