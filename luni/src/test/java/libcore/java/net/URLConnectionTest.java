@@ -84,15 +84,12 @@ import libcore.javax.net.ssl.TestSSLContext;
 import libcore.net.http.HttpResponseCache;
 import tests.net.StuckServer;
 
-<<<<<<< HEAD
-=======
 import static com.google.mockwebserver.SocketPolicy.DISCONNECT_AFTER_READING_REQUEST;
 import static com.google.mockwebserver.SocketPolicy.DISCONNECT_AT_END;
 import static com.google.mockwebserver.SocketPolicy.DISCONNECT_AT_START;
 import static com.google.mockwebserver.SocketPolicy.SHUTDOWN_INPUT_AT_END;
 import static com.google.mockwebserver.SocketPolicy.SHUTDOWN_OUTPUT_AT_END;
 
->>>>>>> 2f1d4ee... Fix tests dealing with retryable bodies.
 public final class URLConnectionTest extends TestCase {
     private MockWebServer server = new MockWebServer();
     private HttpResponseCache cache;
@@ -1858,9 +1855,7 @@ public final class URLConnectionTest extends TestCase {
         }
     }
 
-
     public void testReadTimeoutsOnRecycledConnections() throws Exception {
-
         server.enqueue(new MockResponse().setBody("ABC"));
         server.play();
 
