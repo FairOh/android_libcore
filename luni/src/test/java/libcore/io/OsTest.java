@@ -24,7 +24,6 @@ import java.net.InetSocketAddress;
 import java.net.InetUnixAddress;
 import java.net.ServerSocket;
 import java.net.SocketAddress;
-import java.util.Locale;
 import junit.framework.TestCase;
 
 import static libcore.io.OsConstants.*;
@@ -80,7 +79,7 @@ public class OsTest extends TestCase {
           int requestLength = Libcore.os.read(clientFd, request, 0, request.length);
 
           String s = new String(request, "UTF-8");
-          byte[] response = s.toUpperCase(Locale.ROOT).getBytes("UTF-8");
+          byte[] response = s.toUpperCase().getBytes("UTF-8");
           Libcore.os.write(clientFd, response, 0, response.length);
 
           Libcore.os.close(clientFd);
@@ -104,7 +103,7 @@ public class OsTest extends TestCase {
     byte[] response = new byte[request.length];
     assertEquals(response.length, Libcore.os.read(clientFd, response, 0, response.length));
 
-    assertEquals(string.toUpperCase(Locale.ROOT), new String(response, "UTF-8"));
+    assertEquals(string.toUpperCase(), new String(response, "UTF-8"));
 
     Libcore.os.close(clientFd);
   }
