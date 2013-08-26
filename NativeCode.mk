@@ -94,9 +94,6 @@ core_cflags += -DJNI_JARJAR_PREFIX="com/android/"
 core_cppflags += -std=gnu++11
 
 
-core_cflags := -fvisibility=hidden -fno-strict-aliasing
-core_cflags += '-DGCC_HIDDEN=__attribute__((visibility("hidden")))'
-core_cppflags := -fvisibility-inlines-hidden -fno-strict-aliasing
 
 #
 # Build for the target (device).
