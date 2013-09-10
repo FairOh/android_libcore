@@ -315,7 +315,7 @@ public class DateIntervalFormatTest extends junit.framework.TestCase {
                  formatDateRange(l, utc, oldYear, thisYear, FORMAT_SHOW_DATE | FORMAT_NO_YEAR));
   }
 
-  // http://b/8467515 - yet another 2y38 bug report.
+  // http://b/8467515 - yet another y2k38 bug report.
   public void test8467515() throws Exception {
     Locale l = Locale.US;
     TimeZone utc = TimeZone.getTimeZone("UTC");
