@@ -3,6 +3,25 @@
  */
 [
 {
+  description: "three known CharsetDecoder-/CharsetEncoder-related failures",
+  names: [
+    "org.apache.harmony.nio_char.tests.java.nio.charset.ASCIICharsetEncoderTest#testMultiStepEncode",
+    "org.apache.harmony.nio_char.tests.java.nio.charset.CharsetDecoderTest#testInvalidDecoding",
+    "org.apache.harmony.nio_char.tests.java.nio.charset.CharsetDecoderTest#test_decode"
+  ],
+  bug: 10729779
+},
+{
+  description: "can't compile a pattern with negative look-behind and quantifiers with upper bounds",
+  name: "org.apache.harmony.regex.tests.java.util.regex.PatternTest#test_bug_40103",
+  bug: 40103
+},
+{
+  description: "our regex implementation calls toString on CharSequences",
+  name: "org.apache.harmony.luni.tests.java.util.ScannerParseLargeFileBenchmarkTest#testParseLargeFile",
+  bug: 10133206
+},
+{
   description: "Package.getPackages(), ClassLoader.getPackages() both omit results",
   name: "libcore.java.lang.PackageTest#testGetPackages",
   bug: 5171136
